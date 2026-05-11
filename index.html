@@ -237,120 +237,85 @@
 </div>   <!-- ← ここでSNSだけ閉じる！ -->
 
 <!-- Note記事紹介 -->
+<!-- Note記事 -->
 <section id="note"
   class="py-16 px-6 bg-cover bg-center bg-fixed bg-white/50 bg-blend-overlay"
   style="background-image: url('background1.jpg');">
 
   <div class="max-w-5xl mx-auto text-center bg-white/80 p-8 rounded-lg shadow">
 
-    <h2 class="text-3xl font-bold mb-8">
-      Note記事
-    </h2>
+    <h2 class="text-3xl font-bold mb-8">note記事</h2>
 
     <p class="mb-10 text-gray-700">
-      農業・環境・経営戦略に関する情報を発信しています。
+      農業・環境・経営に関する学術論文の紹介・解説記事を発信しています。
     </p>
 
-    <!-- 記事一覧 -->
     <div id="note-container"
-         class="grid md:grid-cols-2 gap-6">
+         class="space-y-4 text-left">
+      読み込み中...
     </div>
 
-    <!-- Noteトップ -->
     <div class="mt-10">
       <a href="https://note.com/kankyogakusha"
          target="_blank"
          class="inline-block bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-full transition shadow">
-
-        Noteをもっと見る
-
+        note記事をもっと見る
       </a>
     </div>
 
   </div>
 </section>
-
-
 <script>
-const noteUrls = [
-  "https://note.com/kankyogakusha/n/nda6fa16a99f9",
-  "https://note.com/kankyogakusha/n/n71519b5e2fa2"
-];
+async function loadNoteRSS() {
 
-const noteContainer =
-  document.getElementById("note-container");
-
-noteUrls.forEach(async (url) => {
+  const rssUrl =
+    "https://note.com/kankyogakusha/rss";
+  // RSSをJSON変換してくれる無料サービス
+  const api =
+    `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+  const container =
+    document.getElementById("note-container");
 
   try {
-
-    // Note oEmbed API
-    const api =
-      `https://note.com/api/v2/oembed?url=${encodeURIComponent(url)}`;
 
     const res = await fetch(api);
     const data = await res.json();
 
-    // 公開日取得
-    let publishedDate = "";
+    container.innerHTML = "";
 
-    try {
+    data.items.slice(0, 5).forEach(article => {
 
-      const html =
-        await fetch(url).then(r => r.text());
+      const date = new Date(article.pubDate);
 
-      const match =
-        html.match(/"datePublished":"(.*?)"/);
+      const formattedDate =
+        `${date.getFullYear()}/` +
+        `${date.getMonth() + 1}/` +
+        `${date.getDate()}`;
 
-      if (match && match[1]) {
-
-        const date = new Date(match[1]);
-
-        publishedDate =
-          `${date.getFullYear()}/` +
-          `${date.getMonth() + 1}/` +
-          `${date.getDate()}`;
-
-      }
-
-    } catch(e) {
-
-      console.log("日付取得失敗");
-
-    }
-
-    // カード生成
-    const card = `
-      <a href="${url}"
-         target="_blank"
-         class="block bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden text-left">
-
-        <img src="${data.thumbnail_url}"
-             alt="${data.title}"
-             class="w-full h-56 object-cover">
-
-        <div class="p-5">
+      const card = `
+        <div class="bg-white rounded-xl shadow hover:shadow-lg transition p-5">
 
           <div class="text-sm text-gray-500 mb-2">
-            ${publishedDate}
+            ${formattedDate}
           </div>
 
-          <h3 class="text-xl font-bold mb-3">
-            ${data.title}
-          </h3>
+          <a href="${article.link}"
+             target="_blank"
+             class="text-xl font-bold text-green-700 hover:underline">
 
-          <div class="text-green-700 font-semibold">
-            記事を読む →
-          </div>
-
+            ${article.title}
+          </a>
         </div>
-      </a>
-    `;
-    noteContainer.innerHTML += card;
+      `;
+      container.innerHTML += card;
+    });
   } catch(err) {
     console.error(err);
+    container.innerHTML =
+      "記事の読み込みに失敗しました。";
   }
-});
+}
+loadNoteRSS();
 </script>
 
 <!-- 業務紹介 -->
