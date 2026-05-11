@@ -275,34 +275,24 @@ async function loadNoteRSS() {
     `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
   const container =
     document.getElementById("note-container");
-
   try {
-
     const res = await fetch(api);
     const data = await res.json();
-
     container.innerHTML = "";
-
     data.items.slice(0, 5).forEach(article => {
-
       const date = new Date(article.pubDate);
-
       const formattedDate =
         `${date.getFullYear()}/` +
         `${date.getMonth() + 1}/` +
         `${date.getDate()}`;
-
       const card = `
         <div class="bg-white rounded-xl shadow hover:shadow-lg transition p-5">
-
           <div class="text-sm text-gray-500 mb-2">
             ${formattedDate}
           </div>
-
           <a href="${article.link}"
              target="_blank"
              class="text-xl font-bold text-green-700 hover:underline">
-
             ${article.title}
           </a>
         </div>
@@ -322,37 +312,17 @@ loadNoteRSS();
 <section id="intro" class="py-16 px-6 bg-cover bg-center bg-fixed bg-white/50 bg-blend-overlay"
   style="background-image: url('background1.jpg');">
   <div class="max-w-4xl mx-auto text-center bg-white/80 p-8 rounded-lg shadow">
-      <h2 class="text-3xl font-bold mb-8">ご興味ございませんか？</h2>
-          <div class="p-4 text-left">
-            <h3 class="text-xl">
-              ・最新の学術的知見に基づいた費用対効果の最大化<br>
-              ・国や自治体の補助金の利活用と申請サポート<br>
-              <br>
-              　→農業経営は環境楽社にお任せください。
-            <br>
-            </h3>
-          </div>
-        </div>
-  </section>
-  
-<!-- SI Selfintroduction（ここだけ表示したい） -->
-<section id="intro" class="py-16 px-6 bg-cover bg-center bg-fixed bg-white/50 bg-blend-overlay"
-  style="background-image: url('background1.jpg');">
-  <div class="max-w-4xl mx-auto text-center bg-white/80 p-8 rounded-lg shadow">
       <h2 class="text-3xl font-bold mb-8">我々について</h2>
           <div class="p-4 text-left">
             <h3 class="text-xl">
-              共同代表　科学技術統括　博士（工学）<br>
-              加藤 <br>
-              <br>
-              共同代表　経営戦略統括<br>
-              吉沢<br>
-            <br>
+              ・最新の学術的知見に基づいた費用対効果の最大化<br>
+              ・国や自治体の補助金の利活用と申請サポート<br><br>
+              共同代表　科学技術統括　博士（工学）<br>加藤 <br><br>
+              共同代表　経営戦略統括<br>吉沢<br><br>
             </h3>
           </div>
         </div>
   </section>
-
 
 <!-- 問い合わせフォーム -->
 <div id="contact" class="py-16 px-6 bg-cover bg-center bg-fixed bg-white/50 bg-blend-overlay"
