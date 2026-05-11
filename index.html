@@ -236,6 +236,517 @@
    </section>
 </div>   <!-- ← ここでSNSだけ閉じる！ -->
 
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>環境楽社HP</title>
+  <meta name="description" content="「科学技術」と「経営戦略」で、農業を次のステージへ。">
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" href="ahiru-logo.png" type="image/png"> <!-- ファビコンの追加 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-800 font-sans">
+
+<!-- ナビゲーションバー -->
+<nav id="nav-bar" class="transition-all duration-300 fixed left-0 right-0 bottom-0 z-50 bg-white/80 text-gray-800 px-6 py-3 flex justify-between items-center shadow-md">
+  <!-- ロゴ -->
+  <div class="text-xl font-bold relative flex items-center">
+    <img src="Kangaku_LINE.png" class="h-24 md:h-28 w-auto" alt="ロゴ">
+  </div>
+
+<!-- ナビゲーションリンク：非表示 -->
+  <div style="display: none;">
+　　<div class="space-x-1 flex text-sm md:text-xl">
+ 　　 <a href="#act1" class="px-2 md:px-6 py-1 md:py-3 bg-red-800/10 rounded-full hover:bg-red-200/70 hover:text-yellow-800 transition">火</a>
+ 　　 <a href="#act2" class="px-2 md:px-6 py-1 md:py-3 bg-blue-800/10 rounded-full hover:bg-yellow-200/70 hover:text-yellow-800 transition">棚田</a>
+  　　<a href="#act3" class="px-2 md:px-6 py-1 md:py-3 bg-green-800/10 rounded-full hover:bg-yellow-200/70 hover:text-yellow-800 transition">農法</a>
+ 　　 <a href="#contact" class="px-2 md:px-6 py-1 md:py-3 bg-gray-800/10 rounded-full hover:bg-yellow-200/70 hover:text-yellow-800 transition">連絡先</a>
+　　</div>
+  </div>
+</nav>
+
+<script>
+  window.addEventListener('scroll', function () {
+    const nav = document.getElementById('nav-bar');
+    const hero = document.querySelector('header');
+    const heroHeight = hero.offsetHeight;
+    const scrollY = window.scrollY;
+
+    if (scrollY === 0) {
+      // Heroの画面下部・白背景・黒文字・表示
+      nav.classList.remove('top-0', 'bg-black/50', 'backdrop-blur-sm', 'text-white', 'opacity-0', 'pointer-events-none');
+      nav.classList.add('bottom-0', 'bg-white/50', 'text-gray-800', 'opacity-100');
+    } else if (scrollY > 0 && scrollY < heroHeight) {
+      // Hero内でスクロール中 → 非表示（画面下部）
+      nav.classList.add('opacity-0', 'pointer-events-none');
+    } else {
+      // Hero外 → 画面上部・黒半透明・白文字・表示
+      nav.classList.remove('bottom-0', 'bg-white', 'text-gray-800', 'opacity-0', 'pointer-events-none');
+      nav.classList.add('top-0', 'bg-black/50', 'backdrop-blur-sm', 'text-white', 'opacity-100');
+    }
+  });
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4Z6TV82ME8"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4Z6TV82ME8');
+</script>
+
+<!-- 画像ファイル閲覧用 -->
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+  
+<!-- Hero section -->
+<header class="relative bg-cover bg-center h-screen" style="background-image: url('background1.jpg');">
+  <!-- オーバーレイ -->
+  <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-white/80 px-8">
+    <!-- メイン横並びコンテナ -->
+    <div class="w-full flex items-stretch justify-center max-w-7xl mx-auto gap-6">
+      <!-- 左：タイトル -->
+      <div class="flex items-center">
+        <h1 class="text-[2rem] md:text-[4rem] lg:text-[5rem] font-bold leading-relaxed">
+          環境<br>楽社
+        </h1>
+      </div>
+      <!-- 右：説明文 -->
+      <div class="flex items-center text-left tracking-wider leading-relaxed text-base md:text-xl lg:text-2xl" style="line-height: 1.5;">
+        <div>
+          「科学技術」と「経営戦略」で、<br>
+          <br>
+          　農業を次のステージへ。<br>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ボタン -->
+  <div class="absolute bottom-[15%] left-1/2 transform -translate-x-1/2 text-center">
+    <a href="#intro" class="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-full shadow-lg transition text-lg">
+      我々について
+    </a>
+  </div>
+</header>
+  
+<!-- 更新日とPV表示を横並び -->
+<div class="flex justify-center space-x-8 py-5 text-sm text-gray-600 bg-gray-100">
+  <div>last updated: <span id="last-updated"></span></div>
+  <div>pv count: <span id="page-view-count"></span></div> 
+</div>
+
+<script>
+  // 更新日表示
+  const today = new Date();
+  const updated = `${today.getFullYear()}/${today.getMonth() + 1}/${today.getDate()}`;
+  document.getElementById('last-updated').textContent = updated;
+
+  // PV数表示：なんかいつも失敗してない？
+  const apiUrl = 'https://counterapi.com/api/v1/increment?website=kkato707.github.io&page=/kangakusya/';
+  fetch(apiUrl)
+    .then(res => res.json())
+    .then(data => {
+      // レスポンスのvalueを参照
+      document.getElementById('page-view-count').textContent = data.value;
+    })
+    .catch(err => {
+      document.getElementById('page-view-count').textContent = '取得失敗';
+      console.error(err);
+    });
+</script>
+
+  <!-- Act1 バイオマス：Act1～3全部非表示 -->
+<div style="display: none;">
+  <section id="act1" class="py-16 px-6 bg-cover bg-center bg-fixed bg-white/50 bg-blend-overlay"
+    style="background-image: url('background1.jpg');">
+    <div class="max-w-6xl mx-auto text-center bg-white/80 p-8 rounded-lg shadow">
+      <h2 class="text-3xl font-bold mb-8">火に関する活動</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        
+        <!-- 左側のスライダー -->
+        <div x-data="{
+          images: [
+            'zerocarbon/image1.jpg',
+            'zerocarbon/image9.jpg',
+          ],
+          current: 0
+        }" class="relative bg-white rounded-lg shadow p-4">
+          <h3 class="text-xl font-semibold mb-2">ゼロカーボンファイヤモデルとは</h3>
+          <h4 class="text-base mb-2 text-left">廃棄木質資源を地産地焼してカーボンニュートラル*なエネルギーを取得するモデルです。<br>（*実質CO2を排出も吸収もしない）</h4>
+          <img :src="images[current]" alt="画像1" class="w-full rounded-lg shadow mb-2">
+          <div class="flex justify-between">
+            <button @click="current = (current === 0) ? images.length - 1 : current - 1"
+                    class="text-xl bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">◀</button>
+            <button @click="current = (current === images.length - 1) ? 0 : current + 1"
+                    class="text-xl bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">▶</button>
+          </div>
+        </div>
+  
+        <!-- 右側のスライダー -->
+        <div x-data="{
+          images: [
+            'zerocarbon/image2.jpg',
+            'zerocarbon/image3.jpg',
+            'zerocarbon/image4.jpg',
+            'zerocarbon/image5.jpg',
+            'zerocarbon/image6.jpg',
+            'zerocarbon/image7.jpg',
+            'zerocarbon/image8.jpg'
+          ],
+          current: 0
+        }" class="relative bg-white rounded-lg shadow p-4">
+          <h3 class="text-xl font-semibold mb-2">エネルギー教育の実践例</h3>
+          <h4 class="text-base mb-2 text-left"><br>2023年度と2024年度に実施しました。<br><br></h4>
+          <img :src="images[current]" alt="画像2" class="w-full rounded-lg shadow mb-2">
+          <div class="flex justify-between">
+            <button @click="current = (current === 0) ? images.length - 1 : current - 1"
+                    class="text-xl bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">◀</button>
+            <button @click="current = (current === images.length - 1) ? 0 : current + 1"
+                    class="text-xl bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">▶</button>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </section>
+  
+  <!-- Act2 棚田-->
+  <section id="act2" class="py-16 px-6 bg-cover bg-center bg-fixed bg-white/50 bg-blend-overlay"
+    style="background-image: url('background1.jpg');">
+    <div class="max-w-6xl mx-auto text-center bg-white/80 p-8 rounded-lg shadow">
+      <h2 class="text-3xl font-bold mb-8">棚田に関する活動</h2>
+      <p class="mb-5">山梨県甲斐市にある御領棚田にて甲府第一高校と協賛で実施した調査結果です。<br>webアプリやマップ表示は他にも応用可能ですので、ご興味あればフォームよりご連絡ください。</p>
+      <div class="overflow-hidden rounded-lg shadow-lg">
+        <iframe id="inline-frame"
+          width="100%"
+          height="400"
+          src="bio_map.html"
+          style="border: none;">
+        </iframe>
+      </div>
+      <p class="mt-4">
+        <a href="bio_map.html" target="_blank" class="text-blue-600 underline">マップページを開く</a>
+      </p>
+    </div>
+  </section>
+  
+  <!-- Act3 雑草農法-->
+  <section id="act3" class="py-16 px-6 bg-cover bg-center bg-fixed bg-white/50 bg-blend-overlay"
+    style="background-image: url('background1.jpg');">
+    <div class="max-w-6xl mx-auto text-center bg-white/80 p-8 rounded-lg shadow">
+        <h2 class="text-3xl font-bold mb-8">アヒル雑草農法</h2>
+            <div class="p-4 text-center">
+              <h3 class="font-semibold text-xl">｜coming soon｜</h3>
+            </div>
+          </div>
+    </section>
+  </div>
+
+<!-- SNS：一旦閉鎖 -->
+<div style="display: none;">
+  <section id="SNS"
+    class="py-16 px-6 bg-cover bg-center bg-fixed bg-white/50 bg-blend-overlay"
+    style="background-image: url('background1.jpg');">
+    <div class="max-w-6xl mx-auto text-center bg-white/80 p-8 rounded-lg shadow">
+    <h2 class="text-3xl font-bold mb-8">最近の様子（coming soon...）</h2>
+      <p class="mb-6">ツイート</p>
+      <div class="mb-6">
+  <a class="twitter-timeline"
+     data-height="500"
+     data-width="100%"
+     data-theme="dark"
+     data-chrome="noheader nofooter"
+     data-tweet-limit="3"
+     href="https://x.com/FWlBxxX25bVO7La/status/193306748266199625">
+     Tweets by 
+  </a> 
+    <script async src="https://platform.twitter.com/widgets.js" allowfullscreen class="mx-auto" charset="utf-8">
+    </script>
+  </div>
+      <div class="flex justify-center space-x-6">
+        <a href="https://twitter.com/" class="text-blue-500 hover:underline">Twitter</a>
+        <a href="https://facebook.com/" class="text-blue-700 hover:underline">Facebook</a>
+      </div>
+   </section>
+</div>   <!-- ← ここでSNSだけ閉じる！ -->
+
+<!-- Note記事紹介 -->
+<section id="note"
+  class="py-16 px-6 bg-cover bg-center bg-fixed bg-white/50 bg-blend-overlay"
+  style="background-image: url('background1.jpg');">
+
+  <div class="max-w-5xl mx-auto text-center bg-white/80 p-8 rounded-lg shadow">
+
+    <h2 class="text-3xl font-bold mb-8">Note記事</h2>
+
+    <p class="mb-10 text-gray-700">
+      農業・環境・経営戦略に関する情報を発信しています。
+    </p>
+
+    <!-- 記事一覧 -->
+    <div id="note-container"
+         class="grid md:grid-cols-2 gap-6">
+    </div>
+
+    <!-- Noteトップ -->
+    <div class="mt-10">
+      <a href="https://note.com/kankyogakusha"
+         target="_blank"
+         class="inline-block bg-black hover:bg-gray-800 text-white px-6 py-3 rounded-full transition shadow">
+        Noteをもっと見る
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+const noteUrls = [
+  "https://note.com/kankyogakusha/n/nda6fa16a99f9",
+  "https://note.com/kankyogakusha/n/n71519b5e2fa2"
+];
+
+const container = document.getElementById("note-container");
+
+noteUrls.forEach(async (url) => {
+
+  try {
+
+    // Note oEmbed API
+    const api =
+      `https://note.com/api/v2/oembed?url=${encodeURIComponent(url)}`;
+
+    const res = await fetch(api);
+    const data = await res.json();
+
+    // 更新日取得（記事HTMLからmeta取得）
+    let publishedDate = "";
+
+    try {
+      const html = await fetch(url).then(r => r.text());
+
+      const match =
+        html.match(/"datePublished":"(.*?)"/);
+
+      if (match && match[1]) {
+        const date = new Date(match[1]);
+
+        publishedDate =
+          `${date.getFullYear()}/` +
+          `${date.getMonth() + 1}/` +
+          `${date.getDate()}`;
+      }
+
+    } catch(e) {
+      console.log("日付取得失敗");
+    }
+
+    // カード生成
+    const card = `
+      <a href="${url}"
+         target="_blank"
+         class="block bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden text-left">
+
+        <img src="${data.thumbnail_url}"
+             alt="${data.title}"
+             class="w-full h-56 object-cover">
+
+        <div class="p-5">
+
+          <div class="text-sm text-gray-500 mb-2">
+            ${publishedDate}
+          </div>
+
+          <h3 class="text-xl font-bold mb-3">
+            ${data.title}
+          </h3>
+
+          <div class="text-green-700 font-semibold">
+            記事を読む →
+          </div>
+
+        </div>
+      </a>
+    `;
+
+    container.innerHTML += card;
+
+  } catch(err) {
+
+    console.error(err);
+
+  }
+
+});
+</script>
+
+<!-- 業務紹介 -->
+<section id="intro" class="py-16 px-6 bg-cover bg-center bg-fixed bg-white/50 bg-blend-overlay"
+  style="background-image: url('background1.jpg');">
+  <div class="max-w-4xl mx-auto text-center bg-white/80 p-8 rounded-lg shadow">
+      <h2 class="text-3xl font-bold mb-8">ご興味ございませんか？</h2>
+          <div class="p-4 text-left">
+            <h3 class="text-xl">
+              ・最新の学術的知見に基づいた費用対効果の最大化<br>
+              ・国や自治体の補助金の利活用と申請サポート<br>
+              <br>
+              　→農業経営は環境楽社にお任せください。
+            <br>
+            </h3>
+          </div>
+        </div>
+  </section>
+  
+<!-- SI Selfintroduction（ここだけ表示したい） -->
+<section id="intro" class="py-16 px-6 bg-cover bg-center bg-fixed bg-white/50 bg-blend-overlay"
+  style="background-image: url('background1.jpg');">
+  <div class="max-w-4xl mx-auto text-center bg-white/80 p-8 rounded-lg shadow">
+      <h2 class="text-3xl font-bold mb-8">我々について</h2>
+          <div class="p-4 text-left">
+            <h3 class="text-xl">
+              共同代表　科学技術統括　博士（工学）<br>
+              加藤 <br>
+              <br>
+              共同代表　経営戦略統括<br>
+              吉沢<br>
+            <br>
+            </h3>
+          </div>
+        </div>
+  </section>
+
+
+<!-- 問い合わせフォーム -->
+<div id="contact" class="py-16 px-6 bg-cover bg-center bg-fixed bg-white/50 bg-blend-overlay"
+  style="background-image: url('background1.jpg');">
+  <div class="max-w-4xl mx-auto text-center bg-white/80 p-8 rounded-lg shadow">
+  <h2 class="text-3xl font-bold mb-8">お問い合わせ</h2>
+  <h2 class="text-1xl mb-8">ご興味・気になることがあればお気軽にお問い合わせください。</h2>
+  <form method="POST" action="https://formsubmit.co/contact.kankyo.gakusha@gmail.com" class="space-y-4">
+    <!-- 環境楽社のメアドに変えたよ -->
+    <select name="topic" required class="w-full p-3 border rounded">
+      <option value="">お問い合わせ内容を選択</option>
+      <option value="A">政府・自治体の補助金に関して</option>
+      <option value="B">最新の農業技術の知見に関して</option>
+      <option value="C">「環境配慮型農業」や「特別栽培」に関して</option>
+      <option value="その他">その他</option>
+    </select>
+    <input type="text" name="name" required placeholder="お名前（ニックネームでも）" class="w-full p-3 border rounded" />
+    <input type="email" name="email" required placeholder="メールアドレス" class="w-full p-3 border rounded" />
+    <textarea name="message" required placeholder="ご希望内容や質問をご記入ください" class="w-full p-3 border rounded h-28"></textarea>
+    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded transition">送信する</button>
+  </form>
+  </div>
+</div>
+
+<!-- コメントセクション：一旦閉鎖 -->
+<div style="display: none;">
+  <div id="contact" class="py-16 px-6 bg-cover bg-center bg-fixed bg-white/50 bg-blend-overlay"
+    style="background-image: url('background1.jpg');">
+    <div class="max-w-4xl mx-auto text-center bg-white/80 p-8 rounded-lg shadow">
+      <h2 class="text-2xl font-bold text-left mb-8">コメント欄</h2>
+      　<h3 class="text-1xl text-left mb-8">
+         情報共有等、自由にお使いください。<br>
+         ※個人情報等の記入には注意を願います。<br>
+         ※変なコメントは管理者が削除します。</h3>
+        
+      <!-- コメント入力 -->
+      <form action="https://docs.google.com/forms/d/e/1FAIpQLSdpd_MO4cvWVrISrjRSKRmjg0ShE2hfQ6QnuvWT0Ed1MuZXFg/formResponse"
+            target="hidden_iframe" method="post" onsubmit="return test(this.wcheck.value)" class="space-y-4 text-left">
+        <p>
+          <input name="entry.769394285" placeholder="名前" value="名無し" required
+                 class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-300">
+        </p>
+        <p>
+          <textarea name="entry.1499394685" placeholder="コメント" rows="3" maxlength="400" id="wcheck" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded resize-y focus:outline-none focus:ring focus:border-blue-300"></textarea>
+        </p>
+        <input type="submit" id="submitbutton" value="送信"
+               class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded cursor-pointer">
+      </form>
+      <iframe onload='if(submitted){window.location="";}' id="hidden_iframe" name="hidden_iframe" style="display:none;"></iframe>
+      <script type="text/javascript">
+        var NGComments = ["死", "バカ","アホ", ".exe"];
+        var regex = new RegExp(NGComments.join("|"));
+        function test(wcheck) {
+          if (wcheck.match(regex) != null) {
+            alert("ERROR: コメントにNGワードが含まれています");
+            return false;
+          }
+          document.getElementById("submitbutton").disabled = true;
+          return submitted = !0;
+        }
+      </script>
+  
+      <!-- コメント表示 -->
+        <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <div id="comments" class="mt-10 text-left text-sm leading-relaxed"></div>
+        <script>
+          d3.csv("https://docs.google.com/spreadsheets/d/1ZHr3bm1D1QLav7APazBu7XLd7DwqiTnJHHwHiStY1Co/export?format=csv&range=A3:C",
+            function (error, data) {
+              if (error) {
+                console.error("CSV読み込みエラー:", error);
+                return;
+              }
+    
+              data.reverse();
+              function replaceText(text) {
+                return text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+              }
+    
+              var text = "";
+              for (var i = 0; i < data.length; i++) {
+                var name = replaceText(data[i]["Name"] || "名無し");
+                var timestamp = replaceText(data[i]["Timestamp"] || "");
+                var comments = replaceText(data[i]["Comments"] || "");
+    
+                text += `<div class="mb-4 border-b pb-2">
+                            <strong>${i + 1} 名前:</strong> ${name}<br>
+                            <span class="text-xs text-black">${timestamp}</span>
+                            <pre class="whitespace-pre-wrap bg-gray-50 p-2 rounded mt-1">${comments}</pre>
+                         </div>`;
+              }
+              d3.select("#comments").html(text);
+            }); 
+        </script>
+    </div>
+  </div>
+</div>
+<!-- 外側を取ればまた表示できます -->
+  
+<!-- Footer -->
+  <footer class="text-center py-6 bg-gray-800 text-white">
+    <p>&copy; 2025 環境楽社（かんきょうがくしゃ） All rights reserved.</p>
+  </footer>
+
+<!-- トップに戻るボタン -->
+<button id="toTopBtn" title="トップに戻る"
+  class="fixed bottom-8 left-8 bg-gray-700 text-white px-4 py-4 rounded-full shadow-lg hover:bg-gray-900 transition-opacity opacity-0 pointer-events-none z-50">
+  ▲
+</button>
+<script>
+  const toTopBtn = document.getElementById("toTopBtn");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      toTopBtn.classList.remove("opacity-0", "pointer-events-none");
+    } else {
+      toTopBtn.classList.add("opacity-0", "pointer-events-none");
+    }
+  });
+  toTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>
+
+
+</body>
+</html>
+
+
 <!-- 業務紹介 -->
 <section id="intro" class="py-16 px-6 bg-cover bg-center bg-fixed bg-white/50 bg-blend-overlay"
   style="background-image: url('background1.jpg');">
